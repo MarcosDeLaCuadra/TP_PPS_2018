@@ -1,0 +1,61 @@
+<!-- Generated template for the ComponentsEncuestaClienteComponent component -->
+
+
+<h1>Encuesta de Satisfaccion</h1>
+<br>
+<h3>El conductor fue amable?</h3>
+  <ion-item>    
+    <ion-select [(ngModel)]="amabilidad">
+      <ion-option value="Muy poco">Muy poco</ion-option>
+      <ion-option value="Poco">Poco</ion-option>
+      <ion-option value="Bueno">Bueno</ion-option>
+      <ion-option value="Muy bueno">Muy bueno</ion-option>
+    </ion-select>
+  </ion-item>
+<h3>Indique la limpieza del vehiculo</h3>
+
+  <ion-item>    
+    <ion-select [(ngModel)]="limpiezaVehiculo">
+      <ion-option value="Muy poca">Muy poca</ion-option>
+      <ion-option value="Poca">Poca</ion-option>
+      <ion-option value="Buena">Buena</ion-option>
+      <ion-option value="Muy buena">Muy buena</ion-option>
+    </ion-select>
+  </ion-item>
+
+<h3>Fue respetada la ruta trazada en el mapa?</h3>
+
+  <ion-list radio-group [(ngModel)]="ruta">
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="Si" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="No"></ion-radio>
+    </ion-item>
+    
+  </ion-list>
+
+<h3>Fue respetado el uso de la calefaccion?</h3>
+
+  <ion-list radio-group [(ngModel)]="calefaccion">
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="Si" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="No"></ion-radio>
+    </ion-item>
+    
+  </ion-list>
+
+<h3>Comentario</h3>
+
+<ion-item>
+  <ion-textarea placeholder="Ingrese su comentario" [(ngModel)]="comentario"></ion-textarea>
+</ion-item>
+<button ion-button (click)="EnviarEncuesta()" type="submit" color="primary" block>
+  Enviar encuesta
+ </button>

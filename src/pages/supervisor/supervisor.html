@@ -1,0 +1,81 @@
+<!--
+  Generated template for the SupervisorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar align="right">
+      <ion-item>
+          <ion-avatar item-start>
+            <img src="{{user.foto}}">
+          </ion-avatar>
+          <h2>{{user.nombre}}
+          </h2>
+          <p>November 5, 1955</p>
+        </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding style="background-color: brown">
+  
+  <button ion-button (click)="ViajesPendientes()"> Ver viajes pendientes</button>
+  <button ion-button (click)="EncuestasChoferes()"> Ver encuestas de clientes</button>
+  <button ion-button (click)="EcuestasClientes()"> Ver encuestas de choferes</button>
+  
+  
+
+  
+  <div *ngIf="!esperando">
+
+        <div *ngIf="ver">
+          <h1>Viajes pendientes</h1>
+          <ion-list>
+          <ion-card *ngFor=" let viajes of ListadoDeChatsObservable  | async; let i = index " style="background-color: blue">
+            <div *ngIf="viajes.estado =='pendienteSupervisor'">
+              <ion-item>
+                <h1>NOMBRE DEL CLIENTE:</h1>
+                <h2>{{viajes.usuario}}</h2>
+                <h1>ORIGEN:</h1>
+                <p>{{viajes.desde}}</p>
+                <h1>DESTINO:</h1>
+                <p>{{viajes.hasta}}</p>
+              </ion-item>
+              <button ion-button (click)="asignar(viajes.usuario)">ASIGNAR CHOFER</button>
+            
+            </div>
+                
+          </ion-card>
+
+          </ion-list>
+        </div>
+</div>
+
+
+
+<div *ngIf="asig">
+    <ion-list>
+      <ion-card *ngFor=" let choferes of ListadodechoferesObservable  | async; let i = index " style="background-color: blue" (click)="asignar()">
+        
+               <ion-item (click)="asignarchofer(choferes.id, choferes.auto)">
+                 <h1>NOMBRE DEL CHOFER:</h1>
+                 <h2>{{choferes.id}}</h2>
+                 <h1>AUTO:</h1>
+                 <p>{{choferes.auto}}</p>
+               </ion-item>
+               <button ion-button (click)="asignarchofer(choferes.id,choferes.auto )">ASIGNAR CHOFER</button>
+        </ion-card>
+   
+     </ion-list>
+   </div>
+  
+
+   <div *ngIf="esperando" style="background-image: url(assets/imgs/esperar.gif); width:100%; height: 100%; ;">
+
+   
+   </div>
+
+</ion-content>

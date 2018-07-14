@@ -1,0 +1,57 @@
+<!--
+  Generated template for the SuperUsuarioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>super-usuario</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding style="background-color: brown">
+    <button ion-button (click)="Suspender()" type="submit" color="primary" block>
+       Suspender Usuarios
+    </button>
+    <button ion-button (click)="Hablitilar()" type="submit" color="primary" block>
+       Habilitar usuarios
+    </button>
+
+    <div *ngIf="suspender">
+        <ion-list>
+            <ion-card *ngFor=" let usuarios of ListadoDeUsuariosObservable  | async; let i = index " style="background-color: aquamarine" >
+                  <div *ngIf="usuarios.activo">
+                      <h1>EMAIL DEL USUARIO:</h1>
+                      <h2>{{usuarios.email}}</h2>
+                      <h1>NOMBRE:</h1>
+                      <p>{{usuarios.nombre}}</p>
+                  
+                      <button ion-button (click)="SuspenderUsuario(usuarios.email)">Suspender Usuario</button>
+                  </div>    
+                  
+              </ion-card>
+         
+           </ion-list>
+    </div>
+    <div *ngIf="habilitar">
+        <ion-list>
+            <ion-card *ngFor=" let usuarios of ListadoDeUsuariosObservable  | async; let i = index " style="background-color: aquamarine" >
+                  <div *ngIf="!usuarios.activo">
+                      <h1>EMAIL DEL USUARIO:</h1>
+                      <h2>{{usuarios.email}}</h2>
+                      <h1>NOMBRE:</h1>
+                      <p>{{usuarios.nombre}}</p>
+                  
+                      <button ion-button (click)="HabilitarUsuario(usuarios.email)">Habilitar Usuario</button>
+                  </div>    
+                  
+              </ion-card>
+         
+           </ion-list>
+    </div>
+
+</ion-content>

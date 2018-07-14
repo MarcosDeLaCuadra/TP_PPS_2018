@@ -1,0 +1,29 @@
+<ion-header no-border>
+     <!--   <ion-card>
+
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img src="{{user.foto}}">
+                  </ion-avatar>
+                  <h2>{{usuario}}</h2>
+                  <p>November 5, 1955</p>
+                </ion-item>
+                </ion-card>
+              -->
+</ion-header>
+
+<ion-content padding style="background-color: brown; background-image: url(assets/imgs/fondo1.jpg); ">
+
+
+   <h1 align="center">BIENVENIDOS A NUESTRA REMISERIA</h1>
+
+
+
+<ion-spinner *ngIf="mostrarSpinner" name="dots"></ion-spinner>
+<br><br><br><br><br><br><br><br>
+<div align="center">
+<button ion-button (click)="cargarUsuario()" outline color="dark">CONTINUAR</button>
+<button ion-button (click)="ver()">VER</button>
+</div>
+<!--<components-cliente ></components-cliente>-->
+</ion-content>

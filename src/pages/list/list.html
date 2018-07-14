@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-navbar>
+    <title>PAGINA DE CHOFERES</title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: brown">
+  <br><br>
+    <button *ngIf="!verhistorial" ion-button (click)="historial()"> VER VIAJES REALIZADOS</button>
+    <button *ngIf="verhistorial" ion-button (click)="ocultar()"> OCULTAR HISTORIAL</button>
+
+    <div *ngIf="verhistorial">
+      <h1>DATOS DE LOS VIAJES REALIZADOS</h1>
+       <h2>_________________________</h2>
+       <div *ngFor=" let chat of ListadoViajes">     
+           <h3 style="color:white">Usuario: {{chat.usuario}}</h3>
+           <h3 style="color:white">desde: {{chat.desde}}</h3>
+           <h3 style="color:white">hasta: {{chat.hasta}}</h3>
+           <h3 style="color:white">precio: {{chat.precio}}</h3>
+           <h2>_________________________</h2>
+       </div>
+    </div>
+<div *ngIf="!verhistorial">
+  <div *ngIf="!encuestaAuto"> 
+    <div *ngIf="!autoPropio">
+      <div *ngIf="patente == ''">
+          <h1 [hidden]="mostrarBotonPedirAuto">Pedir un vehiculo para trabajar</h1>
+          <button ion-button [hidden]="mostrarBotonPedirAuto" (click)="PedirAuto()">Pedir un auto</button>
+          <div [hidden]="!mostrarBotonPedirAuto">
+              <H1>Autos</H1>
+              <ion-list>
+                 <ion-card *ngFor=" let auto of autos">                   
+                        <ion-item>
+                            <h1>Dueño</h1>
+                            <h2>{{auto.titular}}</h2>
+                            <h1>Marca</h1>
+                            <p>{{auto.marca}}</p>
+                            <h1>Color:</h1>
+                            <p>{{auto.color}}</p>
+                            <h1>Patente:</h1>
+                            <p>{{auto.patente}}</p>
+                          </ion-item>
+                          <button ion-button (click)="TomarVehiculo(auto.patente)">Tomar Vehiculo</button>
+                  </ion-card>
+             
+               </ion-list>
+          </div>
+         
+      </div>
+      
+    </div>
+    <div *ngIf="ver">
+      <div *ngIf="patente != ''">
+          <div *ngIf="!autoPropio">
+              <H1>Devolver vehiculo</H1>
+              <button ion-button (click)="DevolverVehiculo()">Devolver</button>
+              
+              <div *ngIf="!estoyEnLista">
+                  <H1>Añadorse a la lista de busqueda</H1>
+                  <button ion-button (click)="AgregarListaChoferes()">Lista de busqueda</button>
+              </div>
+              
+          </div>
+    
+          <div *ngIf="estoyEnLista">
+
+          
+            <H1>viajes asigndos</H1>
+            <ion-list>
+              <ion-card *ngFor=" let viajes of ListaDeUsuarios">
+                  <div *ngIf="viajes.estado == 'pendienteChofer'">
+                      <ion-item>
+                          <h1>NOMBRE DEL CLIENTE:</h1>
+                          <h2>{{viajes.usuario}}</h2>
+                          <h1>ORIGEN:</h1>
+                          <p>{{viajes.desde}}</p>
+                          <h1>DESTINO:</h1>
+                          <p>{{viajes.hasta}}</p>
+                        </ion-item>
+                        <button ion-button (click)="Aceptar(viajes.usuario)">ACEPTAR VIAJE</button>
+                        <button ion-button  type="button" (click)="CancelarViaje()">Cancelar Viaje</button>  
+                        <button ion-button (click)="Pasajero(viajes.usuario)">VER PASAJERO</button>
+                  </div>
+                      
+
+                </ion-card>
+          
+            </ion-list>
+          </div>    
+        </div> 
+       </div>
+
+       <div *ngIf="enCurso">          
+          <h1 style="color:white">Terminar Viaje</h1>
+          <button ion-button (click)="TerminarViaje()">Terminar</button>        
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+          </agm-map>
+       </div>
+       
+    
+  </div>
+
+  <div *ngIf="encuestaAuto">
+    <div [hidden]="encuesta">
+        <h2>DESEA REALIZAR UNA ENCUESTA SOBRE EL ESTADO DEL VEHICULO?</h2>    
+        <button ion-button  type="button" (click)="AceptarEncuesta()">Aceptar</button>    
+        <button ion-button  type="button" (click)="RechazarEncuesta()">Rechazar</button>
+    </div>
+    <div  [hidden]="!encuesta">
+        <h1 style="color:white">Encuesta de Satisfaccion</h1>
+        <br>
+        
+        <h3>Indique la limpieza interior del vehiculo</h3>
+
+          <ion-item>    
+            <ion-select [(ngModel)]="limpiezaVehiculoInterno">
+              <ion-option value="Muy mala">Muy mala</ion-option>
+              <ion-option value="Mala">Mala</ion-option>
+              <ion-option value="Buena">Buena</ion-option>
+              <ion-option value="Muy buena">Muy buena</ion-option>
+            </ion-select>
+          </ion-item>
+
+        <h3>Indique la limpieza exterior del vehiculo</h3>
+
+        <ion-item>    
+          <ion-select [(ngModel)]="limpiezaVehiculoExterno">
+            <ion-option value="Muy mala">Muy mala</ion-option>
+            <ion-option value="Mala">Mala</ion-option>
+            <ion-option value="Buena">Buena</ion-option>
+            <ion-option value="Muy buena">Muy buena</ion-option>
+          </ion-select>
+        </ion-item>  
+
+        <h3>El vehiculo fue entregado con combustible?</h3>
+
+          <ion-list radio-group [(ngModel)]="combustible">
+            <ion-item>
+              <ion-label>Si</ion-label>
+              <ion-radio value="Si" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>No</ion-label>
+              <ion-radio value="No"></ion-radio>
+            </ion-item>
+            
+          </ion-list>
+
+        <h3>Funciona la calefaccion?</h3>
+
+          <ion-list radio-group [(ngModel)]="calefaccion">
+            <ion-item>
+              <ion-label>Si</ion-label>
+              <ion-radio value="Si" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>No</ion-label>
+              <ion-radio value="No"></ion-radio>
+            </ion-item>
+            
+          </ion-list>
+
+        <h3>Comentario</h3>
+
+        <ion-item>
+          <ion-textarea [(ngModel)]="comentarios" placeholder="Ingrese su comentario" ></ion-textarea>
+        </ion-item>
+        <button ion-button (click)="EnviarEncuesta()" type="submit" color="primary" block>
+          Enviar encuesta
+        </button>
+    </div>
+  </div>
+</div> 
+</ion-content>

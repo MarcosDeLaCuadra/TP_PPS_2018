@@ -1,0 +1,158 @@
+<!--
+  Generated template for the PasajeroPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header *ngIf="!esperando">
+
+  <ion-navbar align="right">
+      <ion-item>
+          <ion-avatar item-start>
+            <img src="{{user.foto}}">
+          </ion-avatar>
+          <h2>{{user.nombre}}
+          </h2>
+          <p>November 5, 1955</p>
+        </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding style="background-color: brown">
+
+<div *ngIf="estado == ''">
+      
+    <ion-item>
+      <ion-label color="primary" stacked>origen</ion-label>
+      <ion-input [(ngModel)]="origen" placeholder="origen"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Destino</ion-label>
+      <ion-input [(ngModel)]="destino" placeholder="Destino"></ion-input>
+    </ion-item>
+
+    <!--calendario-->
+
+    <button ion-button (click)="getDirection()" outline color="dark">Armar Recorrido</button>
+
+    <br><br>
+    <button ion-button [disabled]="deshabilitado" type="button" (click)="Iniciar()">Iniciar viaje</button>
+
+
+    <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-direction *ngIf="dir" (onChange)="dirChange($event)" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+    </agm-map>
+    <!--<components-cliente ></components-cliente>-->
+    
+</div>
+  
+   <div *ngIf="estado == 'pendienteSupervisor'">
+      <h1>SOLICITUD DE VIAJE ENVIADA</h1>
+      <h2>ESPERE MIENTRAS ASIGNAMOS UN CHOFER PARA SU VIAJE</h2>
+      <button ion-button  type="button" (click)="CancelarViaje()">Cancelar Viaje</button>  
+   </div>
+   <div *ngIf="estado == 'pendienteChofer'">
+    <h1>SOLICITUD DE VIAJE ASIGNADA</h1>
+    <h2>ESPERE LA APROBACION DEL CHOFER</h2>
+    <button ion-button  type="button" (click)="CancelarViaje()">Cancelar Viaje</button>  
+  </div>
+  <div *ngIf="estado == 'EnCurso'">    
+    <h1>Viajando...</h1>  
+    <button ion-button (click)="ScanDatosChofer()"> VER DATOS DEL CHOFER</button>
+
+    <ion-list>
+        <ion-card *ngIf="verDatosChofer" style="background-color: aquamarine" >
+              <div>
+                  <h1>DATOS DEL CHOFER:</h1>
+                  <h2>EMAIL:</h2>
+                  <h3>{{datosChofer.email}}</h3>
+                  <h2>NOMBRE:</h2>
+                  <h3>{{datosChofer.nombre}}</h3>
+                  <h2>DIRECCION:</h2>
+                  <h3>{{datosChofer.direccion}}</h3>
+                  <h2>PATENTE:</h2>
+                  <h3>{{datosChofer.patente}}</h3>
+                   
+              </div>   
+          </ion-card>     
+       </ion-list>
+
+    <button ion-button  type="button" (click)="CancelarViaje()">Cancelar Viaje</button>
+    <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-direction  [origin]="desde" [destination]="hasta"></agm-direction>
+    </agm-map>  
+ </div>
+  <div *ngIf="estado == 'Finalizado'">
+    <div *ngIf="!encuesta">
+        <h1>VIAJE FINALIZADO</h1>
+        <h2>DESEA REALIZAR UNA ENCUESTA?</h2>    
+        <button ion-button  type="button" (click)="AceptarEncuesta()">Aceptar</button>    
+        <button ion-button  type="button" (click)="RechazarEncuesta()">Rechazar</button> 
+    </div>
+    
+    <div *ngIf="encuesta">
+        
+        <h1 style="color:white">Encuesta de Satisfaccion</h1>
+        <br>
+        <h3>El conductor fue amable?</h3>
+          <ion-item>    
+            <ion-select [(ngModel)]="amabilidad">
+              <ion-option value="Muy poco">Muy poco</ion-option>
+              <ion-option value="Poco">Poco</ion-option>
+              <ion-option value="Bueno">Bueno</ion-option>
+              <ion-option value="Muy bueno">Muy bueno</ion-option>
+            </ion-select>
+          </ion-item>
+        <h3>Indique la limpieza del vehiculo</h3>
+
+          <ion-item>    
+            <ion-select [(ngModel)]="limpiezaVehiculo">
+              <ion-option value="Muy poca">Muy poca</ion-option>
+              <ion-option value="Poca">Poca</ion-option>
+              <ion-option value="Buena">Buena</ion-option>
+              <ion-option value="Muy buena">Muy buena</ion-option>
+            </ion-select>
+          </ion-item>
+
+        <h3>Fue respetada la ruta trazada en el mapa?</h3>
+
+          <ion-list radio-group [(ngModel)]="ruta">
+            <ion-item>
+              <ion-label>Si</ion-label>
+              <ion-radio value="Si" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>No</ion-label>
+              <ion-radio value="No"></ion-radio>
+            </ion-item>
+            
+          </ion-list>
+
+        <h3>Fue respetado el uso de la calefaccion?</h3>
+
+          <ion-list radio-group [(ngModel)]="calefaccion">
+            <ion-item>
+              <ion-label>Si</ion-label>
+              <ion-radio value="Si" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>No</ion-label>
+              <ion-radio value="No"></ion-radio>
+            </ion-item>
+            
+          </ion-list>
+
+        <h3>Comentario</h3>
+
+        <ion-item>
+          <ion-textarea [(ngModel)]="comentarios" placeholder="Ingrese su comentario" ></ion-textarea>
+        </ion-item>
+        <button ion-button (click)="EnviarEncuesta()" type="submit" color="primary" block>
+          Enviar encuesta
+        </button>
+
+    </div>
+ </div>
+   
+</ion-content>

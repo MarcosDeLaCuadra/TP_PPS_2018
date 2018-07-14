@@ -1,0 +1,25 @@
+<!-- Generated template for the ComponentsClienteComponent component -->
+<div>
+  {{text}}
+</div>
+
+<ion-item>
+  <ion-label color="primary" stacked>origen</ion-label>
+  <ion-input [(ngModel)]="origen" placeholder="origen"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label color="primary" stacked>Destino</ion-label>
+  <ion-input [(ngModel)]="destino" placeholder="Destino"></ion-input>
+</ion-item>
+
+<!--calendario-->
+
+<button ion-button (click)="getDirection()" outline color="dark">Armar Recorrido</button>
+
+<br><br>
+<button ion-button [disabled]="deshabilitado" type="button" (click)="Iniciar()">Iniciar viaje</button>
+
+
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-direction *ngIf="dir" (onChange)="dirChange($event)" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+</agm-map>

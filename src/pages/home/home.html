@@ -1,0 +1,183 @@
+<ion-header no-border>
+    <ion-navbar>
+        <navegador-utn [titulo]="'Inicio'" ></navegador-utn>
+     </ion-navbar>
+   </ion-header>
+   
+   <ion-content padding style="background-color: brown">
+     <h3>Bienvenidos</h3>
+   
+     <p>
+      
+     </p>   
+     
+     <ion-item *ngIf="reg" >
+       <ion-label>TIPO DE USUARIO</ion-label>
+       <ion-select [(ngModel)]="user.tipo">
+         <ion-option value="supervisor">SUPERVISOR</ion-option>
+         <ion-option value="cliente">CLIENTE</ion-option>
+         <ion-option value="superUsuario">SUPER USUARIO</ion-option>
+         <ion-option value="chofer">CHOFER</ion-option>
+       </ion-select>
+     </ion-item>
+   <div *ngIf="log">
+   
+     <form >
+         <ion-item>
+           <ion-label floating>Email</ion-label>
+           <ion-input
+             [(ngModel)]="user.email"
+             name="email"
+             type="text"
+             autocapitalize="off"
+             required
+           >
+           </ion-input>
+         </ion-item>
+   
+         <ion-item>
+           <ion-label floating>Contraseña</ion-label>
+           <ion-input
+             [(ngModel)]="user.password"
+             name="password"
+             type="password"
+             required
+           >
+           </ion-input>
+         </ion-item>
+   
+         <button ion-button (click)="PushSetUp()" type="submit" color="primary" block>
+           Enviar/recibir mensajes
+         </button>
+
+     <div padding>
+         <button
+             ion-button 
+             (click)="login()"
+             type="submit"
+             color="primary"
+             block
+         >
+           Login
+         </button>
+         <br><br><br>
+         <button ion-button (click)="Abel()" type="submit" color="primary" block>
+         cliente abel
+        </button>
+        <button ion-button (click)="Chofer()" type="submit" color="primary" block>
+          chofer
+         </button>
+         <button ion-button (click)="Supervisor()" type="submit" color="primary" block>
+          Supervisor
+         </button> 
+         <button ion-button (click)="Superusuario()" type="submit" color="primary" block>
+            Superusuario
+          </button> 
+         <button
+           ion-button 
+           (click)="registrarse()"
+           type="submit"
+           color="secondary"
+           block
+         >
+           Aun no soy miembro
+         </button>
+       </div>
+         
+     </form>    
+   </div>
+   <ion-list>
+   <div *ngIf="reg">
+   <form ngIF="reg">
+     <ion-item>
+       <ion-label floating>Email</ion-label>
+       <ion-input
+         [(ngModel)]="user.email"
+         name="email"
+         type="text"
+         autocapitalize="off"
+         required
+       >
+       </ion-input>
+     </ion-item>
+   
+     <ion-item>
+       <ion-label floating>Contraseña</ion-label>
+       <ion-input
+         [(ngModel)]="user.password"
+         name="password"
+         type="password"
+         required
+       >
+       </ion-input>
+     </ion-item>
+     
+     <ion-item>
+         <ion-label floating>NOMBRE</ion-label>
+         <ion-input
+           [(ngModel)]="user.nombre"
+           name="email"
+           type="text"
+           autocapitalize="off"
+           required
+         >
+         </ion-input>
+       </ion-item>
+       
+     <ion-item>
+         <ion-label floating>APELLIDO</ion-label>
+         <ion-input
+           [(ngModel)]="user.apellido"
+           name="email"
+           type="text"
+           autocapitalize="off"
+           required
+         >
+         </ion-input>
+       </ion-item>
+       
+     <ion-item>
+         <ion-label floating>DIRECCIÒN</ion-label>
+         <ion-input
+           [(ngModel)]="user.direccion"
+           name="email"
+           type="text"
+           autocapitalize="off"
+           required
+         >
+         </ion-input>
+       </ion-item>
+       
+     <ion-item>
+         <ion-label floating>TELEFONO</ion-label>
+         <ion-input
+           [(ngModel)]="user.telefono"
+           name="email"
+           type="text"
+           autocapitalize="off"
+           required
+         >
+         </ion-input>
+       </ion-item>
+    
+     
+     <div padding>
+       
+   
+       <button
+         ion-button 
+         (click)="signin()"
+         type="submit"
+         color="secondary"
+         block
+       >
+         Dar de alta
+       </button>
+     </div>
+    
+   </form>
+   </div>
+  <!-- <components-encuesta-cliente></components-encuesta-cliente>-->
+   </ion-list>
+   </ion-content>
+   
