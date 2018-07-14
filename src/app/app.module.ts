@@ -37,6 +37,9 @@ import {ComponentsClienteComponent} from '../components/components-cliente/compo
 import {ComponentsEncuestaClienteComponent} from '../components/components-encuesta-cliente/components-encuesta-cliente';
 import { FormsModule } from '@angular/forms';
 import { SuperUsuarioPage } from '../pages/super-usuario/super-usuario';
+import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
+import { EncuestaChoferPage } from '../pages/encuesta-chofer/encuesta-chofer';
+import { CambiarPasswordPage } from '../pages/cambiar-password/cambiar-password';
 //import { BarcodeScanner } from '@ionic-native/barcode-scanner'; 
 
 @NgModule({
@@ -45,7 +48,10 @@ import { SuperUsuarioPage } from '../pages/super-usuario/super-usuario';
     MyApp,
     HomePage,
     ListPage,
+    CambiarPasswordPage, 
+    EncuestaClientePage,
     SuperUsuarioPage,
+    EncuestaChoferPage,
     RegistratePage,
     SalaMensajesPage,
     IngresoPage,
@@ -80,7 +86,10 @@ import { SuperUsuarioPage } from '../pages/super-usuario/super-usuario';
     MyApp,
     HomePage,
     ListPage ,
+    CambiarPasswordPage,
+    EncuestaClientePage,
     SuperUsuarioPage,
+    EncuestaChoferPage,
     RegistratePage,
     SalaMensajesPage,
     IngresoPage,

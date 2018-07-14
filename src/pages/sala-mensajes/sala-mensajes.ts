@@ -155,7 +155,7 @@ coleccionTipadaFirebase:AngularFirestoreCollection<chat>;
     //console.info('usuario cargado corectamente')
     //console.info(this.user)
     if(this.user.foto==""){
-      this.nuevoMensaje()
+     // this.nuevoMensaje()
     }
 
     if(this.user.tipo=="cliente"){

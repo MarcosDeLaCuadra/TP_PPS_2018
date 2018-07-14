@@ -42,7 +42,7 @@ export class PasajeroPage {
   limpiezaVehiculo:any="Buena";
   ruta:any="Si";
   calefaccion:any="No";
-  comentarios:string="lalala";
+  comentarios:string="";
   datosEncuesta = {};
   //para los choferes    
   usuario: string;
@@ -71,6 +71,38 @@ export class PasajeroPage {
   telefono:'', tipo:'', foto:'', foto2:'', foto3:'', mensaje:'aca esta el menaje', 
   usuario:'yo', activo:true};
 
+  sacarFoto(){
+    let cod=Date.now();
+
+    let cameraOptions : CameraOptions = {
+        quality: 50,
+        encodingType: this.camera.EncodingType.JPEG,
+        targetWidth: 800,
+        targetHeight: 600,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        correctOrientation: true
+    }
+  
+  
+    this.camera.getPicture(cameraOptions).then((imageData) => {
+      // imageData is a base64 encoded string
+
+      this.user.foto = "data:image/jpeg;base64," + imageData;imageData;
+      this.objFirebase.collection('USUARIOS').doc(this.user.email).update({
+        foto:this.user.foto
+      })
+     /* this.objFirebase.collection("Cosaslindas").doc("administrador").set({
+        foto:this.foto,
+        usuario:"administrador"
+      });*/
+
+  
+      
+    }, (err) => {
+        //console.log(err);
+    });
+  }
   ////////////////////////////MARCOS//////////////////////////////
   ScanDatosChofer(){
     console.log(this.chofer)
@@ -86,7 +118,9 @@ export class PasajeroPage {
       amabilidad: this.amabilidad,
       limpiezaVehiculo: this.limpiezaVehiculo,
       RespetoDeRuta: this.ruta, UsoDeCalefaccion: this.calefaccion,
-      comentarios:this.comentarios 
+      comentarios:this.comentarios,
+      chofer:this.chofer,
+      cliente:this.user.email 
     };  
     
     this.objFirebase.collection('EncuestaClientes').add(this.datosEncuesta).then(d => {  
@@ -159,7 +193,7 @@ export class PasajeroPage {
   
   }
    ////////////////////////////END MARCOS//////////////////////////////
-  constructor(public navCtrl: NavController, public navParams: NavParams, public objFirebase:AngularFirestore,public objFirebase1:AngularFirestore) {
+  constructor(public camera:Camera,public navCtrl: NavController, public navParams: NavParams, public objFirebase:AngularFirestore,public objFirebase1:AngularFirestore) {
     //this.ver=true
     this.user=this.navParams.data
     localStorage.setItem("email", this.user.email);

@@ -11,6 +11,8 @@ import { AlertController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FirebaseFirestore } from '@firebase/firestore-types';
+import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
+import { EncuestaChoferPage } from '../encuesta-chofer/encuesta-chofer';
 
 /**
  * Generated class for the SupervisorPage page.
@@ -62,10 +64,12 @@ export class SupervisorPage {
    // this.asig=false;
   }
   EncuestasChoferes(){
-    this.estados= "encuestaChoferes";
+    this.navCtrl.push(EncuestaChoferPage); 
+   // this.estados= "encuestaChoferes";
   }
   EcuestasClientes(){
-    this.estados= "encuestaClientes";
+    this.navCtrl.push(EncuestaClientePage); 
+   // this.estados= "encuestaClientes";
   }
 
 

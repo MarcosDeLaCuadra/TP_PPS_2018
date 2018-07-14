@@ -81,7 +81,8 @@ export class ListPage {
       limpiezaVehiculoExterno:this.limpiezaVehiculoExterno,
       combustible:this.combustible,
       calefaccion:this.calefaccion,
-      comentarios:this.comentarios
+      comentarios:this.comentarios,
+      chofer:this.user.email
     };  
     
     this.objFirebase.collection('EncuestaChofer').add(datosEncuesta).then(d => {  

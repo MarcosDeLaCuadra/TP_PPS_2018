@@ -7,6 +7,7 @@ import { RegistratePage } from '../registrate/registrate';
 import { chat } from '../../clases/chat';
 import { Observable } from 'rxjs/Observable';
 import { ListPage } from '../list/list';
+import { CambiarPasswordPage } from '../cambiar-password/cambiar-password';
 
 import { SuperUsuarioPage } from '../super-usuario/super-usuario';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
@@ -142,6 +143,9 @@ export class HomePage {
     this.objFirebase.collection('USUARIOS').doc(this.user.email).set(this.user)
 
   }
+  CambiarContrasenia(){
+    this.navCtrl.setRoot(CambiarPasswordPage); 
+  }
 
   login()
   {
@@ -150,7 +154,7 @@ export class HomePage {
     this.ListadoDeUsuariosObservable.subscribe(data => {
       let flag = false;
       data.forEach(elment => {       
-       if(elment.email == this.user.email && elment.password == this.user.password){
+       if(elment.email == this.user.email && elment.password == this.user.password && elment.activo== true){
          flag=true;
          if(elment.tipo=="chofer"){
           this.navCtrl.setRoot(ListPage, this.user.email) 
@@ -169,6 +173,7 @@ export class HomePage {
           buttons: ['Aceptar']
         });
         alert.present();
+        this.navCtrl.push(HomePage);
       }
      
     });
